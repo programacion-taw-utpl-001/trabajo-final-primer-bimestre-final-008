@@ -2,21 +2,21 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "/Users/macbookpro/entornos/carolina/lib/python3.6/site-packages/IPython/core/interactiveshell.py:2728: DtypeWarning: Columns (1,2,3,5,12,13,14,16,17,27,29,31,32,36,37) have mixed types. Specify dtype option on import or set low_memory=False.\n",
+      "/home/tania/Documentos/Entornos/programacion/lib/python3.5/site-packages/IPython/core/interactiveshell.py:2728: DtypeWarning: Columns (1,2,3,5,12,13,14,16,17,27,29,31,32,36,37) have mixed types. Specify dtype option on import or set low_memory=False.\n",
       "  interactivity=interactivity, compiler=compiler, result=result)\n"
      ]
     }
    ],
    "source": [
     "import pandas\n",
-    "txt = pandas.read_csv(\"/Users/macbookpro/proyectos/carolina/ENV_2016.csv\",encoding=\"cp1252\",sep=\",\")\n",
+    "txt = pandas.read_csv(\"/home/tania/Documentos/proyectoProgramacion/trabajo-final-primer-bimestre-final-008/nacimiento2016/ENV_2016.csv\",encoding=\"cp1252\",sep=\",\")\n",
     "sexo = list((txt[\"sexo\"]))\n",
     "uniSex = list(set(sexo))\n",
     "num1=sexo.count(uniSex[0])\n",
@@ -77,24 +77,48 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 58,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "place1 1135\n",
+      "place2 1202\n",
+      "place3 936\n",
+      "place1 255\n",
+      "place2 243\n",
+      "place3 208\n",
+      "place1 626\n",
+      "place2 704\n",
+      "place3 633\n",
+      "place1 644\n",
+      "place2 712\n",
+      "place3 616\n",
+      "place1 3880\n",
+      "place2 4467\n",
+      "place3 3858\n",
+      "place1 1158\n",
+      "place2 1255\n",
+      "place3 1082\n"
+     ]
+    }
+   ],
    "source": [
     "div = list(set(list((txt[\"mes_insc\"]))))\n",
     "group = list(set(list((txt[\"prov_insc\"]))))\n",
-    "place1=[]\n",
-    "place2=[]\n",
-    "place3=[]\n",
+    "\n",
     "for i in range(6):\n",
-    "    place1.append(len(txt[(txt[\"mes_insc\"] == div[0]) & (txt[\"prov_insc\"] == group[i])]))\n",
-    "    place2.append(len(txt[(txt[\"mes_insc\"] == div[1]) & (txt[\"prov_insc\"] == group[i])]))\n",
-    "    place3.append(len(txt[(txt[\"mes_insc\"] == div[2]) & (txt[\"prov_insc\"] == group[i])]))"
+    "    print(\"place1\",len(txt[(txt[\"mes_insc\"] == div[0]) & (txt[\"prov_insc\"] == group[i])]))\n",
+    "    print(\"place2\",len(txt[(txt[\"mes_insc\"] == div[1]) & (txt[\"prov_insc\"] == group[i])]))\n",
+    "    print(\"place3\",len(txt[(txt[\"mes_insc\"] == div[2]) & (txt[\"prov_insc\"] == group[i])]))\n",
+    "\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 40,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -102,14 +126,15 @@
     "from bokeh.plotting import figure\n",
     "from bokeh.transform import factor_cmap\n",
     "\n",
+    "output_file(\"bar_nested_colormapped.html\")\n",
     "\n",
     "fruits = group[0:6]\n",
     "years = div[0:3]\n",
     "\n",
     "data = {'fruits' : fruits,\n",
-    "        'place1'   : place1,\n",
-    "        'place2'   : place2,\n",
-    "        'place3'   : place3}\n",
+    "        'place1'   : [2, 1, 4, 3, 2, 4],\n",
+    "        'place2'   : [5, 3, 3, 2, 4, 6],\n",
+    "        'place3'   : [3, 2, 4, 4, 5, 3]}\n",
     "\n",
     "palette = [\"#c9d9d3\", \"#718dbf\", \"#e84d60\"]\n",
     "\n",
@@ -131,66 +156,6 @@
     "p.xgrid.grid_line_color = None\n",
     "\n",
     "show(p)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 11,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "[681, 555, 950, 304, 362, 4003]"
-      ]
-     },
-     "execution_count": 11,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "place1"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 12,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "[700, 584, 900, 313, 342, 4313]"
-      ]
-     },
-     "execution_count": 12,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "place2"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 13,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "[626, 513, 1135, 279, 301, 3880]"
-      ]
-     },
-     "execution_count": 13,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "place3"
    ]
   },
   {
@@ -217,7 +182,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.2"
+   "version": "3.5.2+"
   }
  },
  "nbformat": 4,
